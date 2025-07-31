@@ -1,12 +1,13 @@
 import React from 'react';
 import './index.css';
 import PrinterPanel from './components/PrinterPanel';
+import AppLayout from './components/AppLayout';
 
 const App: React.FC = () => {
   return (
-    <div style={{ minHeight: '100vh', background: 'red' }}>
+    <AppLayout>
       <PrinterPanel />
-    </div>
+    </AppLayout>
   );
 };
 

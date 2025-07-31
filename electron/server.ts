@@ -3,6 +3,7 @@ import { SerialPort, SerialPortOpenOptions } from 'serialport';
 import fs from 'fs';
 import path from 'path';
 import { WebSocketServer, WebSocket } from 'ws';
+import cors from 'cors';
 
 interface Config {
   port: string | null;
@@ -15,6 +16,7 @@ const config: Config = fs.existsSync(configPath)
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post('/print', async (req: Request, res: Response) => {
   const { text } = req.body;

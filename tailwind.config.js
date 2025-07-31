@@ -1,10 +1,12 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/renderer/**/*.{js,jsx,ts,tsx}',
-    './src/renderer/index.html'
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}', 
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+    require('@tailwindcss/forms')
+  ],
+  darkMode: 'class',
 };

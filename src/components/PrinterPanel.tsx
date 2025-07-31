@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import PrinterHeader from './PrinterHeader';
 import PrinterPortSelector from './PrinterPortSelector';
 import PrinterTestButton from './PrinterTestButton';
@@ -11,19 +12,16 @@ const PrinterPanel: React.FC = () => {
   const [printStatus, setPrintStatus] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/ports')
-      .then(res => res.json())
-      .then(data => setPorts(data.ports || []));
+    axios.get('http://localhost:3001/ports')
+      .then(res => {
+        console.log(res.data);
+        setPorts(res.data.ports || [])
+      });
   }, []);
 
   const handleSave = async () => {
-    const res = await fetch('http://localhost:3001/select-port', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ port: selectedPort })
-    });
-    const data = await res.json();
-    setSaveStatus(data.message);
+    const res = await axios.post('http://localhost:3001/select-port', { port: selectedPort });
+    setSaveStatus(res.data.message);
   };
 
   const handleTestPrint = () => {
@@ -41,20 +39,18 @@ const PrinterPanel: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 420, margin: '32px auto', background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px #0002', padding: '36px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <PrinterHeader />
-      <PrinterPortSelector
-        ports={ports}
-        selectedPort={selectedPort}
-        setSelectedPort={setSelectedPort}
-        handleSave={handleSave}
-        saveStatus={saveStatus}
-      />
-      <PrinterTestButton
-        handleTestPrint={handleTestPrint}
-        printStatus={printStatus}
-      />
-      <PrinterInstructions />
+    <div className='flex p-2 flex-col items-center justify-between'>
+        <PrinterHeader />
+        <PrinterPortSelector
+          handleTestPrint={handleTestPrint}
+          printStatus={printStatus}
+          ports={ports}
+          selectedPort={selectedPort}
+          setSelectedPort={setSelectedPort}
+          handleSave={handleSave}
+          saveStatus={saveStatus}
+        />
+        <PrinterInstructions />
     </div>
   );
 };

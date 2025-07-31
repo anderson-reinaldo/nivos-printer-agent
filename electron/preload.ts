@@ -1,2 +1,8 @@
-// Preload script para Electron (pode ser expandido futuramente)
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('electronAPI', {
+  minimizeWindow: () => ipcRenderer.send('window:minimize'),
+  closeWindow: () => ipcRenderer.send('window:close'),
+});
+
 export {};

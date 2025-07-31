@@ -1,13 +1,21 @@
 import React from 'react';
+import PrinterIcon from '../../assets/printer-tray.png';
 
 const PrinterHeader: React.FC = () => (
-  <div className="flex flex-col items-center gap-2 mb-5">
-    <img src="assets/printer-tray.png" alt="Impressora" className="w-12 h-12 drop-shadow-sm" />
-    <h2 className="m-0 text-[#222] text-[1.45rem] font-bold tracking-wide">Agente de Impressão Local</h2>
-    <div className="mt-2 text-green-500 font-medium text-[1.05rem] flex items-center">
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="#22c55e" className="inline align-middle"><circle cx="10" cy="10" r="10"/></svg>
-      <span className="ml-1.5">Ativo</span>
+  <div className="flex flex-col items-center gap-3 mb-2 animate-fade-in">
+    <div className="bg-white dark:bg-zinc-800 p-3 rounded-full shadow-md border border-gray-200 dark:border-zinc-700">
+      <img
+        src={PrinterIcon}
+        alt="Impressora"
+        className="w-14 h-14 object-contain drop-shadow-md"
+      />
     </div>
+    <h2 className="text-[1.75rem] font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
+      Agente de Impressão Local
+    </h2>
+    <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-sm">
+      Configure e teste sua impressora conectada localmente para permitir impressões diretas do sistema.
+    </p>
   </div>
 );
 
