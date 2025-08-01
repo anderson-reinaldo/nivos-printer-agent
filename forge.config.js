@@ -5,15 +5,26 @@ module.exports = {
   packagerConfig: {
     asar: true,
     icon: './assets/icons/icon',
+    ignore: [
+      /^\/tests?/,
+      /^\/docs?/,
+      /\.md$/,
+      /\.ts$/,
+      /\.map$/,
+      /\/node_modules\/.*\/(test|tests|example|docs)\//,
+    ],
   },
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-wix',
+      name: '@electron-forge/maker-squirrel',
       config: {
-        icon: './assets/icons/win/icon.ico',
+        setupIcon: './assets/icons/win/icon.ico',
+        loadingGif: './assets/icons/win/loading.gif',
+        noMsi: true
       },
     },
+    // Debian
     {
       name: '@electron-forge/maker-deb',
       config: {
