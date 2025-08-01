@@ -1,5 +1,5 @@
 import React from 'react';
-import PrinterIcon from '../../assets/icon_no_bg.png';
+import PrinterIcon from '../../assets/icon_no_shape.png';
 
 const PrinterHeader: React.FC = () => (
   <div className="flex flex-col items-center gap-3 mb-2 animate-fade-in">
