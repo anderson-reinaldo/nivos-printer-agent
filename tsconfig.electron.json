@@ -1,14 +1,18 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "dist/electron",
     "rootDir": "electron",
     "module": "commonjs",
     "target": "ES2020",
-    "noEmit": false,
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "jsx": "react-jsx"
+    "resolveJsonModule": true,
+    "declaration": true,
+    "allowJs": true,
+    "strict": true,
+    "sourceMap": true,
+    "skipLibCheck": true
   },
-  "include": ["electron/**/*.ts"]
+  "include": ["electron/**/*.ts"],
+  "exclude": ["node_modules"]
 }

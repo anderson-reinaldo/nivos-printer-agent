@@ -5,7 +5,6 @@ import path from 'path'
 
 const server = await createServer({ configFile: 'vite.config.ts' })
 
-// Aponta para o main.js gerado na dist/electron
 spawn(electron, [path.resolve('dist/electron/main.js')], { stdio: 'inherit' }).once('exit', process.exit)
 
 await server.listen()

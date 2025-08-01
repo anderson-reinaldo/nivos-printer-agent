@@ -1,4 +1,3 @@
-# https://www.electron.build/configuration/configuration
 
 appId: br.laserteck.softeck
 asar: true
@@ -9,10 +8,10 @@ files:
 - dist
 - electron
 
-mac:
-  artifactName: "${productName}_${version}.${ext}"
-  target:
-  - dmg
+#mac:
+  #artifactName: "${productName}_${version}.${ext}"
+  #target:
+  #- dmg
 win:
   target:
   - target: nsis

@@ -22,15 +22,17 @@ export function createMainWindow() {
     roundedCorners: true,
     vibrancy: process.platform === 'darwin' ? 'sidebar' : undefined,
     backgroundColor: '#00000000',
+    icon: path.join(__dirname, '../assets/icon.png'),
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
 
-  if (process.env.NODE_ENV === 'development') {
+  if(process.env.NODE_ENV === 'development') {
     win.loadURL('http://localhost:5173');
-  } else {
-    win.loadFile(path.join(__dirname, '../dist/renderer/index.html'));
+  }else{
+    win.loadFile(path.join(__dirname, '../index.html'));
   }
 
   win.once('ready-to-show', () => {

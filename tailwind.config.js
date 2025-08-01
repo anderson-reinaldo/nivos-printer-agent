@@ -1,12 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import tailwindScrollbar from 'tailwind-scrollbar';
+import tailwindForms from '@tailwindcss/forms';
+
+export default {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}', 
   ],
   plugins: [
-    require('tailwind-scrollbar'),
-    require('@tailwindcss/forms')
+    tailwindScrollbar,
+    tailwindForms
   ],
   darkMode: 'class',
 };
