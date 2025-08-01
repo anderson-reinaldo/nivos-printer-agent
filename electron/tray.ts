@@ -5,9 +5,9 @@ import { createMainWindow } from './window';
 let tray: Tray | null = null;
 
 export function createAppTray() {
-  if (tray) return tray; // evita recriar o tray
+  if (tray) return tray;
 
-  const iconPath = path.join(__dirname, '../assets/icon_no_bg.png');
+  const iconPath = path.join(__dirname, '../assets/icon.png');
   let trayIcon: Electron.NativeImage;
 
   try {

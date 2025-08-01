@@ -49,6 +49,7 @@
     "concurrently": "^9.2.0",
     "electron": "^29.0.0",
     "electron-builder": "^24.0.0",
+
     "electron-rebuild": "^3.2.9",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
@@ -58,7 +59,7 @@
   "build": {
     "appId": "com.rtech.printeragent",
     "productName": "printer-agent",
-    "icon": "dist/assets/icon_rounded.png",
+    "icon": "dist/assets/icon.png",
     "directories": {
       "buildResources": "build"
     },
@@ -68,10 +69,10 @@
       ],
       "category": "Utility",
       "maintainer": "andersonnreinaldo@gmail.com",
-      "icon": "dist/assets/icon_rounded.png"
+      "icon": "dist/assets/icon.png"
     },
     "win": {
-      "icon": "dist/assets/icon_rounded.ico"
+      "icon": "dist/assets/icon.ico"
     },
     "nsis": {
       "oneClick": true,

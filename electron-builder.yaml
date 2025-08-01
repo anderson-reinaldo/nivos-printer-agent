@@ -13,7 +13,7 @@ files:
   #target:
   #- dmg
 win:
-  icon: assets/icon_rounded.ico
+  icon: assets/icon.ico
   target:
     - target: nsis
       arch:
