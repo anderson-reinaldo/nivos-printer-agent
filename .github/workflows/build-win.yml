@@ -31,7 +31,7 @@ jobs:
         run: npm install -g yarn
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
 
       - name: Install native module deps
         run: yarn electron-builder install-app-deps
