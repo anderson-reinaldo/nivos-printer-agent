@@ -11,7 +11,7 @@ const PrinterHeader: React.FC = () => (
       />
     </div>
     <h2 className="text-[1.75rem] font-extrabold tracking-tight text-gray-900 dark:text-white text-center">
-      Agente de Impressão Local
+      Agente de Impressão Local 1
     </h2>
     <p className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-sm">
       Configure e teste sua impressora conectada localmente para permitir impressões diretas do sistema.

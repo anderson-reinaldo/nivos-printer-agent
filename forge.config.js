@@ -1,0 +1,62 @@
+const { FusesPlugin } = require('@electron-forge/plugin-fuses');
+const { FuseV1Options, FuseVersion } = require('@electron/fuses');
+const { config } = require('process');
+
+module.exports = {
+  packagerConfig: {
+    asar: true,
+    icon: './assets/icons/icon',
+  },
+  rebuildConfig: {},
+  makers: [
+    {
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        setupIcon: './assets/icons/win/icon.ico'
+      }
+    },
+    {
+      name: '@electron-forge/maker-dmg',
+      config: {
+        icon: './assets/icons/mac/icon.icns'
+      }
+    },
+    {
+      name: '@electron-forge/maker-deb',
+        config: {
+          options: {
+            icon: './assets/icons/linux/icon.png'
+          }
+      }
+    },
+    {
+      name: '@electron-forge/maker-wix',
+      config: {
+        icon: './assets/icons/win/icon.ico'
+      }
+    },
+    {
+      name: '@electron-forge/maker-zip',
+      config: {
+        icon: './assets/icons/mac/icon.icns'
+      },
+      platforms: ['win32'],
+    },
+  ],
+  plugins: [
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {},
+    },
+
+    new FusesPlugin({
+      version: FuseVersion.V1,
+      [FuseV1Options.RunAsNode]: false,
+      [FuseV1Options.EnableCookieEncryption]: true,
+      [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
+      [FuseV1Options.EnableNodeCliInspectArguments]: false,
+      [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
+      [FuseV1Options.OnlyLoadAppFromAsar]: true,
+    }),
+  ],
+};
