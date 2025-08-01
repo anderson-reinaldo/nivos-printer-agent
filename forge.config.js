@@ -1,6 +1,5 @@
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
-const { config } = require('process');
 
 module.exports = {
   packagerConfig: {
@@ -10,35 +9,23 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
+      name: '@electron-forge/maker-wix',
       config: {
-        setupIcon: './assets/icons/win/icon.ico'
-      }
-    },
-    {
-      name: '@electron-forge/maker-dmg',
-      config: {
-        icon: './assets/icons/mac/icon.icns'
-      }
+        icon: './assets/icons/win/icon.ico',
+      },
     },
     {
       name: '@electron-forge/maker-deb',
-        config: {
-          options: {
-            icon: './assets/icons/linux/icon.png'
-          }
-      }
-    },
-    {
-      name: '@electron-forge/maker-wix',
       config: {
-        icon: './assets/icons/win/icon.ico'
-      }
+        options: {
+          icon: './assets/icons/linux/icon.png',
+        },
+      },
     },
     {
       name: '@electron-forge/maker-zip',
       config: {
-        icon: './assets/icons/mac/icon.icns'
+        icon: './assets/icons/win/icon.ico',
       },
       platforms: ['win32'],
     },
@@ -48,7 +35,6 @@ module.exports = {
       name: '@electron-forge/plugin-auto-unpack-natives',
       config: {},
     },
-
     new FusesPlugin({
       version: FuseVersion.V1,
       [FuseV1Options.RunAsNode]: false,
