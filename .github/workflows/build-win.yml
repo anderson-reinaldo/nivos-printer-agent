@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Install native module deps
+        run: yarn electron-builder install-app-deps
+
       - name: Build Electron for Windows
         run: yarn electron:build:win
 
