@@ -114,7 +114,7 @@ app.post('/select-port', (req: Request, res: Response) => {
 });
 
 // WebSocket para impressão
-const wss = new WebSocketServer({ port: 3002 });
+const wss = new WebSocketServer({ port: 4101 });
 
 wss.on('connection', (ws: WebSocket) => {
   ws.on('message', async (data: any) => {
@@ -130,7 +130,7 @@ wss.on('connection', (ws: WebSocket) => {
 
 // Inicia o servidor
 export function startServer() {
-  const PORT = 3001;
+  const PORT = 4100;
 
   // Garante que a pasta ~/.printer-agent existe (opcional)
   fs.mkdirSync(os.homedir() + '/.printer-agent', { recursive: true });

@@ -12,7 +12,7 @@ const PrinterPanel: React.FC = () => {
   const [printStatus, setPrintStatus] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/ports')
+    axios.get('http://localhost:4100/ports')
       .then(res => {
         console.log(res.data);
         setPorts(res.data.ports || [])
@@ -20,13 +20,13 @@ const PrinterPanel: React.FC = () => {
   }, []);
 
   const handleSave = async () => {
-    const res = await axios.post('http://localhost:3001/select-port', { port: selectedPort });
+    const res = await axios.post('http://localhost:4100/select-port', { port: selectedPort });
     setSaveStatus(res.data.message);
   };
 
   const handleTestPrint = () => {
     setPrintStatus('Imprimindo...');
-    const ws = new window.WebSocket('ws://localhost:3002');
+    const ws = new window.WebSocket('ws://localhost:4101');
     ws.onopen = () => {
       ws.send(JSON.stringify({ text: ['*** TESTE DE IMPRESSÃO ***', 'Se você está lendo isso, o agente está funcionando!', 'Data: ' + new Date().toLocaleString()] }));
     };

@@ -1,4 +1,4 @@
-#!/bin/sh
-# Copia a pasta de assets para dist/assets
+#!/bin/bash
+# Copia os assets para a pasta de destino
 mkdir -p dist/assets
 cp -r assets/* dist/assets/
