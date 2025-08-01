@@ -17,14 +17,11 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
+      name: '@electron-forge/maker-wix',
       config: {
-        setupIcon: './assets/icons/win/icon.ico',
-        loadingGif: './assets/icons/win/loading.gif',
-        noMsi: true
+        icon: './assets/icons/win/icon.ico',
       },
     },
-    // Debian
     {
       name: '@electron-forge/maker-deb',
       config: {
