@@ -5,6 +5,7 @@ import cors from 'cors';
 import Store from 'electron-store';
 import fs from 'fs';
 import os from 'os';
+import path from 'path';
 
 interface Config {
   port: string | null;
@@ -14,8 +15,9 @@ interface PrintPayload {
   text: string[];
 }
 
-// Configuração do electron-store
 const store = new Store<Config>({
+  cwd: path.join(os.homedir(), '.printer-agent-config'),
+  name: 'config',
   defaults: {
     port: null
   },
@@ -112,6 +114,13 @@ app.post('/select-port', (req: Request, res: Response) => {
   store.set('port', port);
   res.json({ status: true, message: `Porta ${port} salva com sucesso.` });
 });
+
+// Consultar porta salva
+app.get('/selected-port', (_req: Request, res: Response) => {
+  const port = store.get('port');
+  res.json({ status: true, port });
+});
+
 
 // WebSocket para impressão
 const wss = new WebSocketServer({ port: 4101 });

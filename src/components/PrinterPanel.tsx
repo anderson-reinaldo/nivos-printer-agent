@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PrinterHeader from './PrinterHeader';
 import PrinterPortSelector from './PrinterPortSelector';
-import PrinterTestButton from './PrinterTestButton';
 import PrinterInstructions from './PrinterInstructions';
+import { getPorts, selectPort } from '../services';
 
 const PrinterPanel: React.FC = () => {
   const [ports, setPorts] = useState<any[]>([]);
@@ -12,15 +12,15 @@ const PrinterPanel: React.FC = () => {
   const [printStatus, setPrintStatus] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:4100/ports')
+    (async () => {
+     await getPorts()
       .then(res => {
-        console.log(res.data);
         setPorts(res.data.ports || [])
-      });
+      });})();
   }, []);
 
   const handleSave = async () => {
-    const res = await axios.post('http://localhost:4100/select-port', { port: selectedPort });
+    const res = await selectPort(selectedPort);
     setSaveStatus(res.data.message);
   };
 

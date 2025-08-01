@@ -13,8 +13,9 @@
     "copy:assets": "node scripts/copy-assets.js",
     "build:electron": "tsc -p tsconfig.electron.json && yarn copy:assets",
     "electron:dev": "yarn build:electron && node scripts/dev.mjs",
-    "electron:build": "yarn build && yarn build:electron && electron-builder --win",
-    "rebuild": "electron-rebuild" 
+    "electron:build:linux": "yarn build && yarn build:electron && electron-builder --linux deb",
+    "electron:build:win": "yarn build && yarn build:electron && electron-builder --win",
+    "rebuild": "electron-rebuild"
   },
   "dependencies": {
     "@types/axios": "^0.14.4",
@@ -56,9 +57,20 @@
   "build": {
     "appId": "com.rtech.printeragent",
     "productName": "printer-agent",
-    "icon": "assets/icon.ico",
+    "icon": "dist/assets/icon.png",
+    "directories": {
+      "buildResources": "build"
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "category": "Utility",
+      "maintainer": "andersonnreinaldo@gmail.com",
+      "icon": "dist/assets/icon.png"
+    },
     "win": {
-      "icon": "assets/icon.ico"
+      "icon": "dist/assets/icon.ico"
     },
     "nsis": {
       "oneClick": true,

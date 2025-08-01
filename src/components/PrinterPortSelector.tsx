@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import PrinterTestButton from './PrinterTestButton';
+import { getSelectedPort } from '../services';
 
 interface PrinterPortSelectorProps {
   ports: Array<{ path: string; friendlyName: string }>;
@@ -26,6 +27,24 @@ const PrinterPortSelector: React.FC<PrinterPortSelectorProps> = ({
 
   const [showModal, setShowModal] = useState(false);
   const [savedPort, setSavedPort] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Buscar porta salva ao montar
+    (async () => {
+     await getSelectedPort()
+      .then(({ data }) => {
+        if (data.status && data.port) {
+          setSavedPort(data.port);
+          if (data.port) {
+            setSelectedPort(data.port);
+          }
+        } else {
+          setSavedPort(null);
+        }
+      })
+      .catch(() => setSavedPort(null));
+    })();
+  }, []);
 
   const saveStatusType =
     saveStatus.toLowerCase().includes('sucesso') ? 'success' :

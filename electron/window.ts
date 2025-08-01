@@ -22,7 +22,7 @@ export function createMainWindow() {
     roundedCorners: true,
     vibrancy: process.platform === 'darwin' ? 'sidebar' : undefined,
     backgroundColor: '#00000000',
-    icon: path.join(__dirname, '../assets/icon.ico'),
+    icon: path.join(__dirname, '../assets/icon.png'),
     titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
