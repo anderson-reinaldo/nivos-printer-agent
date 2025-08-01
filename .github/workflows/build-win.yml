@@ -29,7 +29,7 @@ jobs:
         run: yarn electron:build:win
 
       - name: Upload Windows Executable
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: printer-agent-installer
           path: dist/*.exe
