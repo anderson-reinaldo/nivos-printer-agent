@@ -19,7 +19,7 @@ jobs:
         run: |
           if (Test-Path dist) { Remove-Item -Recurse -Force dist }
           if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }
-          if (Test-Path yarn.lock) { Remove-Item -Force yarn.lock }
+
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,7 +31,7 @@ jobs:
         run: npm install -g yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Install native module deps
         run: yarn electron-builder install-app-deps
