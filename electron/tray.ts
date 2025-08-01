@@ -7,7 +7,7 @@ let tray: Tray | null = null;
 export function createAppTray() {
   if (tray) return tray;
 
-  const iconPath = path.join(__dirname, '../assets/icons/linux/icon.png');
+  const iconPath = path.join(__dirname, '../assets/icon_shape.png');
   let trayIcon: Electron.NativeImage;
 
   try {
