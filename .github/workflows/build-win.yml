@@ -15,6 +15,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Clean workspace
+        run: |
+          if (Test-Path dist) { Remove-Item -Recurse -Force dist }
+          if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }
+          if (Test-Path yarn.lock) { Remove-Item -Force yarn.lock }
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
