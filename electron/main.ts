@@ -21,20 +21,23 @@ function ensureAutoStartOnLinuxOnce() {
   const autostartDir = path.join(os.homedir(), '.config', 'autostart');
   const desktopEntryPath = path.join(autostartDir, 'printer-agent.desktop');
   const execPath = app.getPath('exe');
-
+  const iconName = 'printer-agent';
   const desktopEntry = `
-    [Desktop Entry]
-    Type=Application
-    Exec=${execPath}
-    Hidden=false
-    NoDisplay=false
-    X-GNOME-Autostart-enabled=true
-    Name=Printer Agent
-    Comment=Inicia o Printer Agent automaticamente
+  [Desktop Entry]
+  Type=Application
+  Version=1.0
+  Name=Printer Agent
+  Comment=Inicia o Printer Agent automaticamente
+  Exec=${execPath}
+  Icon=${iconName}
+  Terminal=false
+  X-GNOME-Autostart-enabled=true
+  Categories=Utility;
   `;
 
   fs.mkdirSync(autostartDir, { recursive: true });
   fs.writeFileSync(desktopEntryPath, desktopEntry.trim());
+  fs.chmodSync(desktopEntryPath, 0o755);
 
   // Marca que já foi criado
   fs.writeFileSync(flagPath, 'done');
