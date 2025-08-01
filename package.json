@@ -58,7 +58,7 @@
   "build": {
     "appId": "com.rtech.printeragent",
     "productName": "printer-agent",
-    "icon": "dist/assets/icon.png",
+    "icon": "dist/assets/icon_rounded.png",
     "directories": {
       "buildResources": "build"
     },
@@ -68,10 +68,10 @@
       ],
       "category": "Utility",
       "maintainer": "andersonnreinaldo@gmail.com",
-      "icon": "dist/assets/icon.png"
+      "icon": "dist/assets/icon_rounded.png"
     },
     "win": {
-      "icon": "dist/assets/icon.ico"
+      "icon": "dist/assets/icon_rounded.ico"
     },
     "nsis": {
       "oneClick": true,

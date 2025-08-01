@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import PrinterTestButton from './PrinterTestButton';
 import { getSelectedPort } from '../services';
+import { RefreshCcw } from 'lucide-react';
 
 interface PrinterPortSelectorProps {
   ports: Array<{ path: string; friendlyName: string }>;
@@ -10,6 +11,7 @@ interface PrinterPortSelectorProps {
   saveStatus: string;
   handleTestPrint: () => void;
   printStatus: string;
+  fetchPorts: () => Promise<void>;
 }
 
 const PrinterPortSelector: React.FC<PrinterPortSelectorProps> = ({
@@ -19,7 +21,8 @@ const PrinterPortSelector: React.FC<PrinterPortSelectorProps> = ({
   handleSave,
   saveStatus,
   handleTestPrint,
-  printStatus
+  printStatus,
+  fetchPorts
 }) => {
   const noPorts = useMemo(() => ports.length === 0, [ports]);
   const isPortInvalid = !selectedPort && !noPorts;
@@ -27,6 +30,7 @@ const PrinterPortSelector: React.FC<PrinterPortSelectorProps> = ({
 
   const [showModal, setShowModal] = useState(false);
   const [savedPort, setSavedPort] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     // Buscar porta salva ao montar
@@ -72,6 +76,12 @@ const PrinterPortSelector: React.FC<PrinterPortSelectorProps> = ({
     }
   };
 
+  const handleRefreshPorts = async () => {
+    setIsRefreshing(true);
+    await fetchPorts();
+    setIsRefreshing(false);
+  };
+
   return (
     <div className="w-full">
       {/* Modal de confirmação de porta salva */}
@@ -99,24 +109,35 @@ const PrinterPortSelector: React.FC<PrinterPortSelectorProps> = ({
       <label className="font-semibold text-base text-gray-800 dark:text-gray-200" htmlFor="printer-port-select">
         Selecione a porta da impressora:
       </label>
-      <select
-        id="printer-port-select"
-        className={`w-full p-2 my-3 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-600
-          bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100
-          ${isPortInvalid ? 'border-red-400 dark:border-red-500' : 'border-gray-300 dark:border-zinc-700'}`}
-        value={selectedPort}
-        onChange={handleSelectChange}
-        disabled={noPorts}
-        aria-invalid={isPortInvalid}
-        aria-required="true"
-      >
-        <option value="">-- Escolha uma porta --</option>
-        {ports.map(port => (
-          <option key={port.path} value={port.path}>
-            {port.friendlyName || port.path}
-          </option>
-        ))}
-      </select>
+      <div className="flex items-center gap-2 my-3">
+        <select
+          id="printer-port-select"
+          className={`w-full p-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-600
+            bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100
+            ${isPortInvalid ? 'border-red-400 dark:border-red-500' : 'border-gray-300 dark:border-zinc-700'}`}
+          value={selectedPort}
+          onChange={handleSelectChange}
+          disabled={noPorts || isRefreshing}
+          aria-invalid={isPortInvalid}
+          aria-required="true"
+        >
+          <option value="">-- Escolha uma porta --</option>
+          {ports.map(port => (
+            <option key={port.path} value={port.path}>
+              {port.friendlyName || port.path}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          className="px-3 py-3 rounded-md border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-blue-100 dark:hover:bg-blue-900 transition flex items-center justify-center"
+          onClick={handleRefreshPorts}
+          disabled={isRefreshing}
+          title="Recarregar portas"
+        >
+          <RefreshCcw size={16} className={`text-gray-500 dark:text-gray-400 ${isRefreshing && 'animate-spin text-green-500 dark:text-green-400 '}`}/>
+        </button>
+      </div>
 
       {noPorts && (
         <div className="text-red-500 dark:text-red-400 text-sm mb-2">

@@ -7,7 +7,7 @@ let tray: Tray | null = null;
 export function createAppTray() {
   if (tray) return tray; // evita recriar o tray
 
-  const iconPath = path.join(__dirname, '../assets/printer-tray.png');
+  const iconPath = path.join(__dirname, '../assets/icon_no_bg.png');
   let trayIcon: Electron.NativeImage;
 
   try {
