@@ -30,13 +30,13 @@ jobs:
         run: npm install -g yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build Electron distributables (Forge)
-        run: yarn make --arch=ia32
+        run: yarn make
 
       - name: Upload Windows Executable
         uses: actions/upload-artifact@v4
         with:
           name: printer-agent-installer
-          path: out/make/**/*.exe
+          path: out/make/**/*.msi

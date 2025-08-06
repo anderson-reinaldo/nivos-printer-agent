@@ -18,8 +18,7 @@
     "rebuild": "electron-rebuild",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "yarn build && yarn build:electron && electron-forge make"
-  },
+"make": "yarn build && yarn build:electron && electron-forge make -- --arch=ia32 --platform=win32"  },
   "dependencies": {
     "@electron-forge/maker-dmg": "^7.8.2",
     "@electron-forge/maker-wix": "^7.8.2",
