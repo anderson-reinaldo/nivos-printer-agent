@@ -17,6 +17,14 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        name: 'nivos-printer-agent',
+        setupIcon: './assets/icons/win/icon.ico',
+      },
+      platforms: ['win32'],
+    },
+    {
       name: '@electron-forge/maker-wix',
       config: {
         icon: './assets/icons/win/icon.ico',
@@ -29,13 +37,6 @@ module.exports = {
           icon: './assets/icons/linux/icon.png',
         },
       },
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      config: {
-        icon: './assets/icons/win/icon.ico',
-      },
-      platforms: ['win32'],
     },
   ],
   plugins: [
