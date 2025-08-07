@@ -19,6 +19,8 @@ jobs:
         run: |
           if (Test-Path dist) { Remove-Item -Recurse -Force dist }
           if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }
+          if (Test-Path out) { Remove-Item -Recurse -Force out }
+          if (Test-Path .electron-forge) { Remove-Item -Recurse -Force .electron-forge }
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

@@ -3,6 +3,10 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
 module.exports = {
   packagerConfig: {
+    electronVersion: '23.6.8', // Última versão com suporte experimental ao Win7
+    win32metadata: {
+      minimumSupportedWindowsRelease: 'win7',
+    },
     asar: true,
     icon: './assets/icon',
     ignore: [
