@@ -20,7 +20,7 @@ module.exports = {
       name: '@electron-forge/maker-wix',
       config: {
         icon: './assets/icons/win/icon.ico',
-        arch: 'ia32',
+        arch: 'x86',
       },
       platforms: ['win32'],
     },
