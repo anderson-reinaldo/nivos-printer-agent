@@ -34,11 +34,7 @@ app.use(express.json());
 app.use(cors());
 
 // Função de impressão comum (usada por HTTP e WebSocket)
-async function handlePrint(text: string[]): Promise<{ status: boolean; message: string }> {
-  if (!Array.isArray(text)) {
-    return { status: false, message: 'Payload inválido. Esperado: { text: [string, ...] }' };
-  }
-
+async function handlePrint(text: any): Promise<{ status: boolean; message: string }> {
   const ports = await SerialPort.list();
   const currentPort = store.get('port');
   const selectedPort = currentPort ? ports.find(p => p.path === currentPort) : ports[0];
@@ -47,7 +43,6 @@ async function handlePrint(text: string[]): Promise<{ status: boolean; message: 
     return { status: false, message: 'Nenhuma porta serial disponível.' };
   }
 
-  const cleanText = text.map(line => line.replace(/[^\x20-\x7E]/g, '')).join('\n');
 
   const options: SerialPortOpenOptions<any> = {
     path: selectedPort.path,
@@ -64,7 +59,7 @@ async function handlePrint(text: string[]): Promise<{ status: boolean; message: 
         return resolve({ status: false, message: 'Erro ao abrir porta: ' + err.message });
       }
 
-      printer.write(cleanText + '\n\n', 'utf8', err => {
+      printer.write(text, 'utf8', err => {
         if (err) {
           printer.close();
           return resolve({ status: false, message: 'Erro na impressão: ' + err.message });
