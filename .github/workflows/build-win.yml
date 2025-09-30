@@ -59,7 +59,7 @@ jobs:
         with:
           name: printer-agent-windows
           path: |
-            dist/*.exe
-            dist/*.msi
-            dist/*.zip
-            dist/win-unpacked/**
+            release/**/*.exe
+            release/**/*.msi
+            release/**/*.zip
+            release/**/win-unpacked/**
