@@ -62,3 +62,4 @@ jobs:
             dist/*.exe
             dist/*.msi
             dist/*.zip
+            dist/win-unpacked/**
