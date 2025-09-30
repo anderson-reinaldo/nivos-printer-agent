@@ -26,27 +26,29 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'yarn'
 
       - name: Install Yarn
         run: npm install -g yarn
 
-      - name: Install Windows Build Tools
-        run: |
-          yarn add --dev windows-build-tools
-          npm config set msvs_version 2019
+      # ⚠️ windows-build-tools é legado e só funciona no npm, não no Yarn
+      # Em runners do GitHub, já vem com MSVC e Python instalados.
+      # Se tiver módulos nativos, recomendo usar node-gyp direto
+      - name: Ensure Windows build tools
+        run: npm install -g node-gyp
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      # Se você precisar realmente rebuildar nativos
       - name: Rebuild native modules
-        run: yarn rebuild
+        run: yarn rebuild || echo "No native modules to rebuild"
 
       - name: Build application
         run: yarn build
 
-      - name: Build Electron App
+      - name: Build Electron App (Windows)
         run: yarn electron:build:win
         env:
           NODE_ENV: production
