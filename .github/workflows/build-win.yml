@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Clean workspace
         run: |
@@ -21,24 +21,42 @@ jobs:
           if (Test-Path node_modules) { Remove-Item -Recurse -Force node_modules }
           if (Test-Path out) { Remove-Item -Recurse -Force out }
           if (Test-Path .electron-forge) { Remove-Item -Recurse -Force .electron-forge }
+          if (Test-Path release) { Remove-Item -Recurse -Force release }
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
           cache: 'yarn'
 
       - name: Install Yarn
         run: npm install -g yarn
 
+      - name: Install Windows Build Tools
+        run: |
+          yarn add --dev windows-build-tools
+          npm config set msvs_version 2019
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build Electron distributables (Forge)
-        run: yarn make
+      - name: Rebuild native modules
+        run: yarn rebuild
+
+      - name: Build application
+        run: yarn build
+
+      - name: Build Electron App
+        run: yarn electron:build:win
+        env:
+          NODE_ENV: production
+          CSC_IDENTITY_AUTO_DISCOVERY: false
 
       - name: Upload Windows Executable
         uses: actions/upload-artifact@v4
         with:
-          name: printer-agent-installer
-          path: out/make/**/*.msi
+          name: printer-agent-windows
+          path: |
+            dist/*.exe
+            dist/*.msi
+            dist/*.zip

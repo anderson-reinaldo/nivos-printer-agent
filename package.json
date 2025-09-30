@@ -14,7 +14,7 @@
     "build:electron": "tsc -p tsconfig.electron.json && yarn copy:assets",
     "electron:dev": "yarn build:electron && node scripts/dev.mjs",
     "electron:build:linux": "yarn build && yarn build:electron && electron-builder --linux deb",
-    "electron:build:win": "yarn build && yarn build:electron && electron-builder --win",
+    "electron:build:win": "yarn build && yarn build:electron && electron-builder --win --publish=never",
     "rebuild": "electron-rebuild",
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -61,6 +61,7 @@
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.2.0",
     "electron": "^22.3.9",
+    "electron-builder": "^26.0.12",
     "electron-rebuild": "^3.2.9",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
@@ -68,34 +69,44 @@
     "vite": "^7.0.6"
   },
   "build": {
-    "appId": "com.rtech.printeragent",
-    "productName": "printer-agent",
-    "icon": "dist/assets/icons/icon.png",
+    "appId": "br.laserteck.softeck",
+    "productName": "Printer Agent",
+    "asar": true,
     "directories": {
-      "buildResources": "build"
-    },
-    "linux": {
-      "target": [
-        "deb"
-      ],
-      "category": "Utility",
-      "maintainer": "andersonnreinaldo@gmail.com",
-      "icon": "dist/assets/icons/icon.png"
-    },
-    "win": {
-      "icon": "dist/assets/icons/icon.ico"
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false
+      "output": "release/${version}",
+      "buildResources": "assets"
     },
     "files": [
-      "dist/electron/**/*",
-      "dist/renderer/**/*",
-      "dist/assets/**/*",
-      "dist/index.html",
+      "dist/**/*",
+      "electron/**/*",
       "node_modules/**/*",
       "package.json"
-    ]
+    ],
+    "win": {
+      "icon": "assets/icons/win/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_${version}.${ext}",
+      "requestedExecutionLevel": "asInvoker",
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "assets/icons/win/icon.ico",
+      "uninstallerIcon": "assets/icons/win/icon.ico",
+      "installerHeaderIcon": "assets/icons/win/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Printer Agent"
+    }
   }
 }
